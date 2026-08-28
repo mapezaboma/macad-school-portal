@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="cards">
+<div class="card"><span>Active Students</span><strong>{{counts.students}}</strong></div><div class="card"><span>Active Teachers</span><strong>{{counts.teachers}}</strong></div>
+<div class="card"><span>Classes</span><strong>{{counts.classes}}</strong></div><div class="card"><span>Fees Outstanding</span><strong>K {{'%.2f'|format(counts.fees_due-counts.fees_paid)}}</strong></div>
+</div>
+<div class="grid2"><section class="panel"><h2>Today's Attendance</h2><div class="mini"><b>Present</b><b>Absent</b><b>Late</b><b>Excused</b></div><div class="mini"><span>{{att.p}}</span><span>{{att.a}}</span><span>{{att.l}}</span><span>{{att.e}}</span></div></section>
+<section class="panel"><h2>Quick Actions</h2><div class="actions"><a href="{{url_for('students')}}">+ Add Student</a><a href="{{url_for('attendance')}}">Take Attendance</a><a href="{{url_for('fees')}}">Record Payment</a><a href="{{url_for('exams')}}">Enter Results</a></div></section></div>
+<section class="panel"><h2>Recent Fee Payments</h2><div class="table-wrap"><table><tr><th>Admission</th><th>Student</th><th>Paid</th><th>Date</th><th>Reference</th></tr>{% for r in recent %}<tr><td>{{r.admission_no}}</td><td>{{r.name}}</td><td>K {{'%.2f'|format(r.amount_paid)}}</td><td>{{r.payment_date}}</td><td>{{r.reference}}</td></tr>{% else %}<tr><td colspan="5">No payments recorded yet.</td></tr>{% endfor %}</table></div></section>
+{% endblock %}

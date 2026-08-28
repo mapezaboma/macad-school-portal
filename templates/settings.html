@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Settings{% endblock %}{% block heading %}System Settings{% endblock %}
+{% block content %}<section class="panel"><h2>Change Administrator Password</h2><form method="post" class="formgrid">
+<input type="password" name="current_password" placeholder="Current password" required><input type="password" name="new_password" placeholder="New password (6+ characters)" minlength="6" required><button>Update Password</button></form></section>
+<section class="panel"><h2>Database Backup</h2><p class="hint">Download a copy of the local SQLite database for safe keeping.</p><a class="small-btn" href="{{url_for('backup')}}">Download Database Backup</a></section>
+<section class="panel"><h2>Portal Modules</h2><p>Students • Teachers • Attendance • Fees • Exams & Results • Reports • Password & Backup</p><p class="hint">This version is designed for practical local school administration. For public internet deployment, use HTTPS, a strong SECRET_KEY, regular backups, and a production WSGI server.</p></section>{% endblock %}
