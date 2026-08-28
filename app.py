@@ -12,9 +12,16 @@ app.secret_key = os.environ.get("SECRET_KEY", "macad-local-change-this-secret")
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
-def init_db()
+def db():
+    con = sqlite3.connect(DB)
+    con.row_factory = sqlite3.Row
+    con.execute("PRAGMA foreign_keys = ON")
+    return con
 
-@app.route("/login", methods=["GET", "POST"])
+
+def init_db():
+    con = db()
+    con.executescript("""
     CREATE TABLE IF NOT EXISTS users(
       id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'Administrator',
@@ -56,6 +63,9 @@ def init_db()
     con.commit()
     con.close()
 
+
+# Initialize database when Gunicorn imports app.py.
+init_db()
 def login_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
