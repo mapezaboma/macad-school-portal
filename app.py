@@ -12,16 +12,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "macad-local-change-this-secret")
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
-def db():
-    con = sqlite3.connect(DB)
-    con.row_factory = sqlite3.Row
-    con.execute("PRAGMA foreign_keys = ON")
-    return con
-
-def     con.commit()
-    con.close()
-
-init_db()
+def init_db():
 
 @app.route("/login", methods=["GET", "POST"])
     CREATE TABLE IF NOT EXISTS users(
