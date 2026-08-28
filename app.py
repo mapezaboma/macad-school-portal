@@ -18,9 +18,12 @@ def db():
     con.execute("PRAGMA foreign_keys = ON")
     return con
 
-def init_db():
-    con = db()
-    con.executescript("""
+def     con.commit()
+    con.close()
+
+init_db()
+
+@app.route("/login", methods=["GET", "POST"])
     CREATE TABLE IF NOT EXISTS users(
       id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'Administrator',
